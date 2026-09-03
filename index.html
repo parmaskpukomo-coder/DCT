@@ -13,14 +13,13 @@
             --orange-light: #ff9b62;
             --navy: #173b68;
             --coral: #e78383;
-            --cream: #fff8e7;
             --bg: #f6f7f9;
             --text: #252525;
             --muted: #777;
             --border: #ececec;
             --white: #ffffff;
-            --shadow: 0 4px 12px rgba(70, 35, 30, 0.06);
-            --radius: 12px;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --radius: 10px;
         }
 
         * {
@@ -31,8 +30,7 @@
             margin: 0;
             font-family: Inter, Arial, Helvetica, sans-serif;
             color: var(--text);
-            background: radial-gradient(circle at 10% 0%, #fff4df 0, transparent 28%),
-                linear-gradient(180deg, #fffdf9 0%, #f4f6f8 100%);
+            background: #fafafa;
             min-height: 100vh;
             padding: 0;
         }
@@ -52,7 +50,7 @@
             border-radius: 18px;
             background: linear-gradient(135deg, rgba(100, 21, 34, .98), rgba(143, 29, 44, .92)),
                 var(--maroon);
-            box-shadow: var(--shadow);
+            box-shadow: 0 4px 12px rgba(70, 35, 30, 0.1);
         }
 
         .header::after {
@@ -129,10 +127,6 @@
             cursor: pointer;
         }
 
-        .status-row {
-            display: none; /* Sembunyikan sesuai permintaan */
-        }
-
         /* SECTION TITLE (Ringkasan Data) */
         .section-title {
             margin: 18px 0 10px;
@@ -142,20 +136,17 @@
             color: var(--maroon-dark);
             font-size: 16px;
         }
-        .section-title p {
-            display: none; /* Sembunyikan sesuai permintaan */
-        }
 
         /* CARD */
         .card {
             padding: 14px;
-            border: 1px solid rgba(0, 0, 0, .03);
+            border: 1px solid rgba(0, 0, 0, .04);
             border-radius: var(--radius);
             background: var(--white);
             box-shadow: var(--shadow);
         }
 
-        /* SUMMARY GRID - DIPERKECIL */
+        /* SUMMARY GRID - SEDERHANA */
         .summary-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -163,23 +154,11 @@
         }
 
         .summary-card {
-            position: relative;
-            padding: 12px 14px;
-            overflow: hidden;
-            border-radius: 12px;
-            background: white;
-            box-shadow: var(--shadow);
-        }
-
-        .summary-card::after {
-            content: "";
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            right: -20px;
-            bottom: -20px;
-            border-radius: 50%;
-            background: #fff2e8;
+            padding: 10px 12px;
+            border-radius: 10px;
+            background: #f8f6f4;
+            border: 1px solid #f0ece8;
+            text-align: center;
         }
 
         .summary-label {
@@ -188,12 +167,13 @@
             font-weight: 700;
             letter-spacing: .4px;
             text-transform: uppercase;
+            display: block;
+            margin-bottom: 2px;
         }
 
         .summary-value {
-            margin-top: 4px;
             color: var(--maroon-dark);
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 800;
             line-height: 1.2;
         }
@@ -202,21 +182,7 @@
             color: var(--muted);
             font-size: 10px;
             margin-left: 2px;
-        }
-
-        .summary-icon {
-            position: absolute;
-            right: 10px;
-            top: 10px;
-            z-index: 1;
-            display: grid;
-            width: 24px;
-            height: 24px;
-            place-items: center;
-            border-radius: 8px;
-            color: white;
-            font-size: 11px;
-            background: var(--maroon);
+            font-weight: 400;
         }
 
         /* MAIN CHART */
@@ -308,7 +274,7 @@
             display: flex;
             height: 320px;
             padding: 12px 4px 0 0;
-            min-width: 720px; /* Supaya bisa di-scroll di HP */
+            min-width: 720px;
         }
 
         .y-axis {
@@ -518,20 +484,13 @@
                 gap: 6px;
             }
             .summary-card {
-                padding: 8px 10px;
+                padding: 8px 6px;
             }
             .summary-value {
-                font-size: 17px;
+                font-size: 18px;
             }
             .summary-label {
                 font-size: 8px;
-            }
-            .summary-icon {
-                width: 20px;
-                height: 20px;
-                font-size: 9px;
-                right: 6px;
-                top: 6px;
             }
             .main-chart-card {
                 padding: 12px 10px;
@@ -598,13 +557,10 @@
 
         @media (max-width: 400px) {
             .summary-value {
-                font-size: 15px;
+                font-size: 16px;
             }
             .summary-card {
-                padding: 6px 8px;
-            }
-            .summary-icon {
-                display: none;
+                padding: 6px 4px;
             }
             .vertical-chart {
                 height: 220px;
@@ -656,8 +612,6 @@
                         </select>
                     </div>
                 </div>
-
-                <!-- Status row dihapus -->
             </div>
         </header>
 
@@ -668,20 +622,17 @@
 
         <section class="summary-grid">
             <div class="summary-card">
-                <div class="summary-icon">▣</div>
-                <div class="summary-label">TOTAL DCT</div>
+                <span class="summary-label">TOTAL DCT</span>
                 <div class="summary-value" id="totalDct">360 <span class="summary-unit">orang</span></div>
             </div>
 
             <div class="summary-card">
-                <div class="summary-icon" style="background:var(--navy)">♂</div>
-                <div class="summary-label">LAKI-LAKI</div>
+                <span class="summary-label">LAKI-LAKI</span>
                 <div class="summary-value" id="totalMale">210 <span class="summary-unit">orang</span></div>
             </div>
 
             <div class="summary-card">
-                <div class="summary-icon" style="background:var(--coral)">♀</div>
-                <div class="summary-label">PEREMPUAN</div>
+                <span class="summary-label">PEREMPUAN</span>
                 <div class="summary-value" id="totalFemale">150 <span class="summary-unit">orang</span></div>
             </div>
         </section>
