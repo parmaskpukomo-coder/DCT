@@ -678,7 +678,7 @@
             </div>
 
             <!-- SUMBER DATA -->
-            <div class="source-data">
+            <div class="source-data" id="sourceData">
                 Sumber data:
                 <a href="https://www.kpu.go.id/" target="_blank" rel="noopener noreferrer">
                     SK KPU Nomor 123/KPU/2024
@@ -808,6 +808,24 @@
         };
 
         // ============================================================
+        // SUMBER DATA PER TAHUN (SK KPU)
+        // ============================================================
+        const sourceDataMap = {
+            2024: {
+                text: 'SK KPU Nomor 123/KPU/2024',
+                url: 'https://www.kpu.go.id/berita/read/123/sk-kpu-2024'
+            },
+            2019: {
+                text: 'SK KPU Nomor 456/KPU/2019',
+                url: 'https://www.kpu.go.id/berita/read/456/sk-kpu-2019'
+            },
+            2014: {
+                text: 'SK KPU Nomor 789/KPU/2014',
+                url: 'https://www.kpu.go.id/berita/read/789/sk-kpu-2014'
+            }
+        };
+
+        // ============================================================
         // LOGIKA RENDER
         // ============================================================
 
@@ -817,6 +835,7 @@
         const tooltip = document.getElementById("tooltip");
         const yAxis = document.getElementById("yAxis");
         const tooltipPercent = document.getElementById("tooltipPercent");
+        const sourceDataEl = document.getElementById("sourceData");
 
         let currentDapil = "all";
 
@@ -939,10 +958,22 @@
             tooltip.classList.add("show");
         }
 
+        // Fungsi untuk update sumber data berdasarkan tahun
+        function updateSourceData() {
+            const year = yearSelect.value;
+            const source = sourceDataMap[year];
+            if (source) {
+                sourceDataEl.innerHTML = `Sumber data: <a href="${source.url}" target="_blank" rel="noopener noreferrer">${source.text}</a>`;
+            } else {
+                sourceDataEl.innerHTML = `Sumber data: <a href="#" target="_blank">SK KPU tidak tersedia</a>`;
+            }
+        }
+
         function renderDashboard() {
             const items = getCurrentData();
             renderSummary();
             renderMainChart(items);
+            updateSourceData(); // perbarui sumber data setiap kali tahun berubah
 
             tooltip.classList.remove("show");
             document.querySelectorAll(".bar").forEach(itemBar => {
