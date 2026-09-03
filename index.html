@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rekapitulasi DCT DPRD Kota Mojokerto</title>
+
+    <style>
+        :root {
+            --maroon: #8f1d2c;
+            --maroon-dark: #641522;
+            --orange: #ec5b1c;
+            --orange-light: #ff9b62;
+            --navy: #173b68;
+            --coral: #e78383;
+            --cream: #fff8e7;
+            --bg: #f6f7f9;
+            --text: #252525;
+            --muted: #777;
+            --border: #ececec;
+            --white: #ffffff;
+            --shadow: 0 8px 24px rgba(70, 35, 30, 0.08);
+            --radius: 18px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, Arial, Helvetica, sans-serif;
+            color: var(--text);
+            background: radial-gradient(circle at 10% 0%, #fff4df 0, transparent 28%),
+                linear-gradient(180deg, #fffdf9 0%, #f4f6f8 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 28px 0 20px;
+        }
+
+        .header {
+            position: relative;
+            overflow: hidden;
+            padding: 28px;
+            color: white;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(100, 21, 34, .98), rgba(143, 29, 44, .92)),
+                var(--maroon);
+            box-shadow: var(--shadow);
+        }
+
+        .header::after {
+            content: "";
+            position: absolute;
+            width: 230px;
+            height: 230px;
+            right: -60px;
+            top: -80px;
+            border: 35px solid rgba(255, 255, 255, .08);
+            border-radius: 50%;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-label {
+            display: inline-block;
+            margin-bottom: 12px;
+            padding: 6px 11px;
+            border: 1px solid rgba(255, 255, 255, .25);
+            border-radius: 999px;
+            font-size: 11px;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, .1);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(25px, 5vw, 42px);
+            line-height: 1.1;
+            letter-spacing: -.8px;
+        }
+
+        .subtitle {
+            margin: 10px 0 0;
+            color: #ffe5d8;
+            font-size: 14px;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 11px;
+            border-radius: 999px;
+            color: var(--text);
+            background: white;
+        }
+
+        .filter-group label {
+            color: var(--muted);
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        select {
+            border: 0;
+            outline: none;
+            color: var(--maroon-dark);
+            font-weight: 700;
+            background: white;
+            cursor: pointer;
+        }
+
+        .status-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 18px;
+            margin-top: 14px;
+            color: #ffe9df;
+            font-size: 12px;
+        }
+
+        .status-row span::before {
+            content: "●";
+            margin-right: 6px;
+            color: #ffbe7b;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin: 28px 0 13px;
+        }
+
+        .section-title h2 {
+            margin: 0;
+            color: var(--maroon-dark);
+            font-size: 19px;
+        }
+
+        .section-title p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .card {
+            padding: 20px;
+            border: 1px solid rgba(0, 0, 0, .035);
+            border-radius: var(--radius);
+            background: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .summary-card {
+            position: relative;
+            min-height: 126px;
+            padding: 18px;
+            overflow: hidden;
+            border-radius: 16px;
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .summary-card::after {
+            content: "";
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            right: -28px;
+            bottom: -28px;
+            border-radius: 50%;
+            background: #fff2e8;
+        }
+
+        .summary-label {
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .5px;
+        }
+
+        .summary-value {
+            margin-top: 12px;
+            color: var(--maroon-dark);
+            font-size: 31px;
+            font-weight: 800;
+        }
+
+        .summary-unit {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .summary-icon {
+            position: absolute;
+            right: 16px;
+            top: 15px;
+            z-index: 1;
+            display: grid;
+            width: 32px;
+            height: 32px;
+            place-items: center;
+            border-radius: 10px;
+            color: white;
+            font-size: 15px;
+            background: var(--maroon);
+        }
+
+        .main-chart-card {
+            padding: 22px 18px 18px;
+        }
+
+        .chart-head {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .chart-head h3 {
+            margin: 0;
+            color: var(--maroon-dark);
+            font-size: 17px;
+        }
+
+        .chart-head p {
+            margin: 5px 0 0;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .legend {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .legend-dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.orange {
+            background: var(--orange);
+        }
+
+        .vertical-chart {
+            display: flex;
+            height: 365px;
+            padding: 20px 8px 0 0;
+        }
+
+        .y-axis {
+            display: flex;
+            width: 42px;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0 8px 42px 0;
+            color: #8b8b8b;
+            font-size: 10px;
+            text-align: right;
+        }
+
+        .plot-area {
+            position: relative;
+            display: flex;
+            flex: 1;
+            align-items: stretch;
+            border-bottom: 2px solid #bdbdbd;
+            background: repeating-linear-gradient(to top,
+                    transparent 0,
+                    transparent calc(25% - 1px),
+                    #eeeeee calc(25% - 1px),
+                    #eeeeee 25%);
+        }
+
+        .bar-group {
+            position: relative;
+            display: flex;
+            flex: 1;
+            min-width: 30px;
+            align-items: flex-end;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .bar-wrapper {
+            position: relative;
+            display: flex;
+            width: min(50px, 65%);
+            height: 100%;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .bar {
+            position: relative;
+            width: 100%;
+            min-height: 4px;
+            border-radius: 9px 9px 2px 2px;
+            background: linear-gradient(180deg, var(--orange-light), var(--orange));
+            box-shadow: 0 4px 10px rgba(236, 91, 28, .18);
+            transition: .25s ease;
+            cursor: pointer;
+        }
+
+        .bar:hover,
+        .bar.active {
+            background: linear-gradient(180deg, #c73532, var(--maroon));
+            transform: scaleX(1.08);
+        }
+
+        .bar-number {
+            position: absolute;
+            top: -28px;
+            left: 50%;
+            z-index: 2;
+            transform: translateX(-50%);
+            padding: 3px 6px;
+            border: 1px solid #f1d3c7;
+            border-radius: 8px;
+            color: var(--maroon-dark);
+            font-size: 10px;
+            font-weight: 800;
+            white-space: nowrap;
+            background: white;
+        }
+
+        .party-logo {
+            position: absolute;
+            top: -58px;
+            left: 50%;
+            z-index: 1;
+            display: grid;
+            width: 22px;
+            height: 22px;
+            place-items: center;
+            transform: translateX(-50%);
+            border: 2px solid white;
+            border-radius: 50%;
+            color: white;
+            font-size: 7px;
+            font-weight: 800;
+            background: var(--maroon);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, .18);
+        }
+
+        .x-label {
+            position: absolute;
+            bottom: -36px;
+            left: 50%;
+            width: 60px;
+            transform: translateX(-50%);
+            color: #555;
+            font-size: 9px;
+            line-height: 1.1;
+            text-align: center;
+        }
+
+        .axis-title {
+            margin-top: 48px;
+            color: var(--muted);
+            font-size: 11px;
+            text-align: center;
+        }
+
+        .tooltip {
+            display: none;
+            width: min(100%, 270px);
+            margin: 18px auto 0;
+            padding: 13px 15px;
+            border-left: 4px solid var(--maroon);
+            border-radius: 12px;
+            background: #fff8f4;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .06);
+        }
+
+        .tooltip.show {
+            display: block;
+        }
+
+        .tooltip-title {
+            margin-bottom: 6px;
+            color: var(--maroon-dark);
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .tooltip-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+            color: #555;
+            font-size: 12px;
+        }
+
+        .tooltip-percent {
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid #f0e0d8;
+            color: var(--maroon);
+            font-weight: 700;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .filter-dapil-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+            margin-top: 12px;
+            padding: 10px 16px;
+            border-radius: 12px;
+            background: #f8f4f0;
+        }
+
+        .filter-dapil-wrapper label {
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .filter-dapil-wrapper select {
+            padding: 4px 8px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            background: white;
+        }
+
+        .no-data {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+        }
+
+        /* Sumber data - diposisikan di atas axis-title, rata kiri */
+        .source-data {
+            margin-top: 40px;
+            margin-bottom: 6px;
+            text-align: left;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .source-data a {
+            color: var(--maroon);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .source-data a:hover {
+            color: var(--maroon-dark);
+            text-decoration: underline;
+        }
+
+        @media (max-width: 760px) {
+            .container {
+                width: min(100% - 20px, 680px);
+                padding-top: 10px;
+            }
+
+            .header {
+                padding: 22px 18px;
+            }
+
+            .summary-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .vertical-chart {
+                height: 320px;
+            }
+
+            .bar-group {
+                min-width: 24px;
+            }
+
+            .bar-wrapper {
+                width: 60%;
+            }
+
+            .x-label {
+                width: 50px;
+                font-size: 8px;
+                bottom: -32px;
+            }
+
+            .party-logo {
+                width: 18px;
+                height: 18px;
+                font-size: 6px;
+                top: -48px;
+            }
+
+            .bar-number {
+                font-size: 8px;
+                padding: 2px 4px;
+                top: -24px;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .summary-card {
+                min-height: 112px;
+                padding: 14px;
+            }
+
+            .summary-value {
+                font-size: 25px;
+            }
+
+            .main-chart-card,
+            .card {
+                padding: 16px 10px;
+            }
+
+            .vertical-chart {
+                height: 280px;
+                padding: 12px 4px 0 0;
+            }
+
+            .y-axis {
+                width: 32px;
+                font-size: 8px;
+                padding-right: 4px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+
+        <header class="header">
+            <div class="header-content">
+                <div class="header-label">Dashboard Informasi Pemilu</div>
+                <h1>REKAPITULASI DCT</h1>
+                <p class="subtitle">DPRD Kota Mojokerto</p>
+
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="yearSelect">Tahun Pemilu</label>
+                        <select id="yearSelect">
+                            <option value="2024">2024</option>
+                            <option value="2019">2019</option>
+                            <option value="2014">2014</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="status-row">
+                    <span>Data ilustrasi</span>
+                    <span>Semua grafik mengikuti filter</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="section-title">
+            <div>
+                <h2>Ringkasan Data</h2>
+                <p>Informasi umum jumlah daftar calon tetap (total seluruh dapil)</p>
+            </div>
+        </section>
+
+        <section class="summary-grid">
+            <div class="summary-card">
+                <div class="summary-icon">▣</div>
+                <div class="summary-label">TOTAL DCT</div>
+                <div class="summary-value" id="totalDct">360</div>
+                <div class="summary-unit">orang</div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-icon" style="background:var(--navy)">♂</div>
+                <div class="summary-label">LAKI-LAKI</div>
+                <div class="summary-value" id="totalMale">210</div>
+                <div class="summary-unit">orang</div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-icon" style="background:var(--coral)">♀</div>
+                <div class="summary-label">PEREMPUAN</div>
+                <div class="summary-value" id="totalFemale">150</div>
+                <div class="summary-unit">orang</div>
+            </div>
+        </section>
+
+        <!-- Bagian "Grafik Utama" dan deskripsinya telah dihapus -->
+
+        <section class="card main-chart-card">
+            <div class="chart-head">
+                <div>
+                    <h3>Jumlah DCT per Partai</h3>
+                    <p>Jumlah DCT (orang) • Grafik batang vertikal</p>
+                </div>
+                <div class="legend">
+                    <div class="legend-item">
+                        <span class="legend-dot orange"></span>
+                        Jumlah DCT
+                    </div>
+                </div>
+            </div>
+
+            <!-- FILTER DAPIL DI BAWAH JUDUL GRAFIK -->
+            <div class="filter-dapil-wrapper">
+                <label for="dapilSelect">Pilih Dapil:</label>
+                <select id="dapilSelect">
+                    <option value="all">Semua Dapil</option>
+                    <option value="dapil1">Dapil 1</option>
+                    <option value="dapil2">Dapil 2</option>
+                    <option value="dapil3">Dapil 3</option>
+                </select>
+            </div>
+
+            <div class="vertical-chart">
+                <div class="y-axis" id="yAxis">
+                    <span>50</span>
+                    <span>40</span>
+                    <span>30</span>
+                    <span>20</span>
+                    <span>10</span>
+                    <span>0</span>
+                </div>
+                <div class="plot-area" id="mainChart"></div>
+            </div>
+
+            <!-- SUMBER DATA: di atas axis-title, rata kiri -->
+            <div class="source-data">
+                Sumber data:
+                <a href="https://www.kpu.go.id/" target="_blank" rel="noopener noreferrer">
+                    SK KPU Nomor 123/KPU/2024
+                </a>
+            </div>
+
+            <div class="axis-title">
+                Tekan batang untuk melihat rincian partai
+            </div>
+
+            <div class="tooltip" id="tooltip">
+                <div class="tooltip-title" id="tooltipTitle">PKB</div>
+                <div class="tooltip-grid">
+                    <span>Total DCT</span>
+                    <strong id="tooltipTotal">30 orang</strong>
+                    <span>Laki-laki</span>
+                    <strong id="tooltipMale">18 orang</strong>
+                    <span>Perempuan</span>
+                    <strong id="tooltipFemale">12 orang</strong>
+                </div>
+                <div class="tooltip-percent" id="tooltipPercent" style="display:none;"></div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        // ============================================================
+        // DATA TETAP UNTUK 18 PARTAI NASIONAL PESERTA PEMILU 2024
+        // ============================================================
+
+        const dataAll2024 = [
+            { party: "PKB", short: "PKB", logo: "PKB", male: 18, female: 12 },
+            { party: "Gerindra", short: "Ger", logo: "G", male: 20, female: 10 },
+            { party: "PDI Perjuangan", short: "PDI-P", logo: "PDI", male: 22, female: 18 },
+            { party: "Golkar", short: "Golkar", logo: "G", male: 19, female: 11 },
+            { party: "NasDem", short: "NasDem", logo: "N", male: 16, female: 14 },
+            { party: "PKS", short: "PKS", logo: "PKS", male: 17, female: 13 },
+            { party: "PAN", short: "PAN", logo: "PAN", male: 15, female: 15 },
+            { party: "Demokrat", short: "Demokrat", logo: "D", male: 16, female: 14 },
+            { party: "PPP", short: "PPP", logo: "PPP", male: 14, female: 16 },
+            { party: "Perindo", short: "Perindo", logo: "P", male: 12, female: 8 },
+            { party: "PSI", short: "PSI", logo: "PSI", male: 10, female: 10 },
+            { party: "PBB", short: "PBB", logo: "PBB", male: 8, female: 6 },
+            { party: "Garuda", short: "Garuda", logo: "G", male: 7, female: 5 },
+            { party: "Berkarya", short: "Berkarya", logo: "B", male: 6, female: 4 },
+            { party: "Hanura", short: "Hanura", logo: "H", male: 9, female: 7 },
+            { party: "PKN", short: "PKN", logo: "PKN", male: 5, female: 5 },
+            { party: "Gelora", short: "Gelora", logo: "G", male: 6, female: 4 },
+            { party: "Ummat", short: "Ummat", logo: "U", male: 4, female: 6 }
+        ];
+
+        // Fungsi untuk membagi data all ke tiga dapil dengan proporsi tetap (40%, 35%, 25%)
+        function splitDataForDapil(data, ratios) {
+            const dapils = [
+                [],
+                [],
+                []
+            ];
+            data.forEach(item => {
+                const maleTotal = item.male;
+                const femaleTotal = item.female;
+                let maleRemain = maleTotal;
+                let femaleRemain = femaleTotal;
+                ratios.forEach((ratio, idx) => {
+                    let malePart = Math.floor(maleTotal * ratio);
+                    let femalePart = Math.floor(femaleTotal * ratio);
+                    if (idx === ratios.length - 1) {
+                        malePart = maleRemain;
+                        femalePart = femaleRemain;
+                    } else {
+                        maleRemain -= malePart;
+                        femaleRemain -= femalePart;
+                    }
+                    dapils[idx].push({
+                        ...item,
+                        male: malePart,
+                        female: femalePart
+                    });
+                });
+            });
+            return dapils;
+        }
+
+        const ratios = [0.4, 0.35, 0.25];
+        const [dapil1Data, dapil2Data, dapil3Data] = splitDataForDapil(dataAll2024, ratios);
+
+        // Data untuk tahun 2019 dan 2014 (9 partai, tanpa dapil)
+        const data2019All = [
+            { party: "PKB", short: "PKB", logo: "PKB", male: 16, female: 10 },
+            { party: "Gerindra", short: "Ger", logo: "G", male: 17, female: 9 },
+            { party: "PDI Perjuangan", short: "PDI-P", logo: "PDI", male: 15, female: 11 },
+            { party: "Golkar", short: "Golkar", logo: "G", male: 16, female: 10 },
+            { party: "NasDem", short: "NasDem", logo: "N", male: 14, female: 11 },
+            { party: "PKS", short: "PKS", logo: "PKS", male: 15, female: 10 },
+            { party: "PAN", short: "PAN", logo: "PAN", male: 13, female: 11 },
+            { party: "Demokrat", short: "Demokrat", logo: "D", male: 14, female: 10 },
+            { party: "PPP", short: "PPP", logo: "PPP", male: 12, female: 11 }
+        ];
+
+        const data2014All = [
+            { party: "PKB", short: "PKB", logo: "PKB", male: 14, female: 8 },
+            { party: "Gerindra", short: "Ger", logo: "G", male: 15, female: 8 },
+            { party: "PDI Perjuangan", short: "PDI-P", logo: "PDI", male: 14, female: 8 },
+            { party: "Golkar", short: "Golkar", logo: "G", male: 15, female: 7 },
+            { party: "NasDem", short: "NasDem", logo: "N", male: 12, female: 8 },
+            { party: "PKS", short: "PKS", logo: "PKS", male: 13, female: 8 },
+            { party: "PAN", short: "PAN", logo: "PAN", male: 12, female: 8 },
+            { party: "Demokrat", short: "Demokrat", logo: "D", male: 13, female: 7 },
+            { party: "PPP", short: "PPP", logo: "PPP", male: 11, female: 8 }
+        ];
+
+        // Struktur data global
+        const data = {
+            2024: {
+                all: dataAll2024,
+                dapil1: dapil1Data,
+                dapil2: dapil2Data,
+                dapil3: dapil3Data
+            },
+            2019: {
+                all: data2019All
+            },
+            2014: {
+                all: data2014All
+            }
+        };
+
+        // ============================================================
+        // LOGIKA RENDER
+        // ============================================================
+
+        const yearSelect = document.getElementById("yearSelect");
+        const dapilSelect = document.getElementById("dapilSelect");
+        const mainChart = document.getElementById("mainChart");
+        const tooltip = document.getElementById("tooltip");
+        const yAxis = document.getElementById("yAxis");
+        const tooltipPercent = document.getElementById("tooltipPercent");
+
+        let currentDapil = "all";
+
+        function getCurrentData() {
+            const year = yearSelect.value;
+            const yearData = data[year];
+            if (!yearData) return [];
+
+            if (currentDapil === "all" || !yearData[currentDapil]) {
+                return yearData.all || [];
+            }
+            return yearData[currentDapil] || [];
+        }
+
+        // Ambil data all untuk ringkasan (tidak terpengaruh filter dapil)
+        function getSummaryData() {
+            const year = yearSelect.value;
+            const yearData = data[year];
+            if (!yearData) return [];
+            return yearData.all || [];
+        }
+
+        function formatNumber(number) {
+            return new Intl.NumberFormat("id-ID").format(number);
+        }
+
+        function renderSummary() {
+            const items = getSummaryData(); // selalu ambil data all
+            const totalMale = items.reduce((sum, item) => sum + item.male, 0);
+            const totalFemale = items.reduce((sum, item) => sum + item.female, 0);
+            const total = totalMale + totalFemale;
+
+            document.getElementById("totalDct").textContent = formatNumber(total);
+            document.getElementById("totalMale").textContent = formatNumber(totalMale);
+            document.getElementById("totalFemale").textContent = formatNumber(totalFemale);
+        }
+
+        function renderMainChart(items) {
+            mainChart.innerHTML = "";
+            if (!items || items.length === 0) {
+                mainChart.innerHTML = `<div class="no-data">Tidak ada data untuk filter ini</div>`;
+                return;
+            }
+
+            const maxTotal = Math.max(...items.map(item => item.male + item.female), 1);
+            const maxValue = Math.ceil(maxTotal / 10) * 10 + 10;
+
+            // Update y-axis labels
+            const steps = 5;
+            yAxis.innerHTML = '';
+            for (let i = steps; i >= 0; i--) {
+                const val = Math.round((i / steps) * maxValue);
+                const span = document.createElement('span');
+                span.textContent = val;
+                yAxis.appendChild(span);
+            }
+
+            items.forEach((item, index) => {
+                const total = item.male + item.female;
+                const group = document.createElement("div");
+                group.className = "bar-group";
+
+                const wrapper = document.createElement("div");
+                wrapper.className = "bar-wrapper";
+
+                const bar = document.createElement("div");
+                bar.className = "bar";
+                const heightPercent = (total / maxValue) * 100;
+                bar.style.height = `${Math.max(heightPercent, 2)}%`;
+                bar.dataset.index = index;
+
+                const number = document.createElement("div");
+                number.className = "bar-number";
+                number.textContent = total;
+
+                const logo = document.createElement("div");
+                logo.className = "party-logo";
+                logo.textContent = item.logo;
+
+                const label = document.createElement("div");
+                label.className = "x-label";
+                label.textContent = item.short;
+
+                bar.appendChild(number);
+                bar.appendChild(logo);
+                wrapper.appendChild(bar);
+                group.appendChild(wrapper);
+                group.appendChild(label);
+                mainChart.appendChild(group);
+
+                bar.addEventListener("click", () => {
+                    document.querySelectorAll(".bar").forEach(itemBar => {
+                        itemBar.classList.remove("active");
+                    });
+                    bar.classList.add("active");
+                    showTooltip(item);
+                });
+            });
+        }
+
+        function showTooltip(item) {
+            const total = item.male + item.female;
+            const femalePercent = (item.female / total * 100).toFixed(1);
+
+            document.getElementById("tooltipTitle").textContent = item.party;
+            document.getElementById("tooltipTotal").textContent =
+                `${formatNumber(total)} orang`;
+            document.getElementById("tooltipMale").textContent =
+                `${formatNumber(item.male)} orang`;
+            document.getElementById("tooltipFemale").textContent =
+                `${formatNumber(item.female)} orang`;
+
+            // Tampilkan persentase hanya jika dapil spesifik (bukan "all")
+            if (currentDapil !== "all") {
+                tooltipPercent.style.display = 'block';
+                tooltipPercent.textContent = `Keterwakilan Perempuan: ${femalePercent.replace('.', ',')}%`;
+            } else {
+                tooltipPercent.style.display = 'none';
+            }
+
+            tooltip.classList.add("show");
+        }
+
+        function renderDashboard() {
+            const items = getCurrentData();
+            renderSummary(); // selalu pakai data all
+            renderMainChart(items);
+
+            // Sembunyikan tooltip dan reset active bar
+            tooltip.classList.remove("show");
+            document.querySelectorAll(".bar").forEach(itemBar => {
+                itemBar.classList.remove("active");
+            });
+        }
+
+        // Event listeners
+        yearSelect.addEventListener("change", renderDashboard);
+
+        dapilSelect.addEventListener("change", () => {
+            currentDapil = dapilSelect.value;
+            renderDashboard();
+        });
+
+        // Inisialisasi
+        renderDashboard();
+    </script>
+</body>
+</html>
