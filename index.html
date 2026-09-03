@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>Rekapitulasi DCT DPRD Kota Mojokerto</title>
 
     <style>
@@ -19,8 +19,8 @@
             --muted: #777;
             --border: #ececec;
             --white: #ffffff;
-            --shadow: 0 8px 24px rgba(70, 35, 30, 0.08);
-            --radius: 18px;
+            --shadow: 0 4px 12px rgba(70, 35, 30, 0.06);
+            --radius: 12px;
         }
 
         * {
@@ -34,20 +34,22 @@
             background: radial-gradient(circle at 10% 0%, #fff4df 0, transparent 28%),
                 linear-gradient(180deg, #fffdf9 0%, #f4f6f8 100%);
             min-height: 100vh;
+            padding: 0;
         }
 
         .container {
-            width: min(1120px, calc(100% - 32px));
+            width: min(1120px, calc(100% - 16px));
             margin: 0 auto;
-            padding: 28px 0 20px;
+            padding: 16px 0 20px;
         }
 
+        /* HEADER */
         .header {
             position: relative;
             overflow: hidden;
-            padding: 28px;
+            padding: 18px 20px;
             color: white;
-            border-radius: 24px;
+            border-radius: 18px;
             background: linear-gradient(135deg, rgba(100, 21, 34, .98), rgba(143, 29, 44, .92)),
                 var(--maroon);
             box-shadow: var(--shadow);
@@ -56,11 +58,11 @@
         .header::after {
             content: "";
             position: absolute;
-            width: 230px;
-            height: 230px;
-            right: -60px;
-            top: -80px;
-            border: 35px solid rgba(255, 255, 255, .08);
+            width: 150px;
+            height: 150px;
+            right: -40px;
+            top: -50px;
+            border: 25px solid rgba(255, 255, 255, .06);
             border-radius: 50%;
         }
 
@@ -71,41 +73,41 @@
 
         .header-label {
             display: inline-block;
-            margin-bottom: 12px;
-            padding: 6px 11px;
-            border: 1px solid rgba(255, 255, 255, .25);
+            margin-bottom: 6px;
+            padding: 4px 10px;
+            border: 1px solid rgba(255, 255, 255, .2);
             border-radius: 999px;
-            font-size: 11px;
-            letter-spacing: .8px;
+            font-size: 10px;
+            letter-spacing: .6px;
             text-transform: uppercase;
-            background: rgba(255, 255, 255, .1);
+            background: rgba(255, 255, 255, .08);
         }
 
         h1 {
             margin: 0;
-            font-size: clamp(25px, 5vw, 42px);
+            font-size: clamp(20px, 4vw, 32px);
             line-height: 1.1;
-            letter-spacing: -.8px;
+            letter-spacing: -.5px;
         }
 
         .subtitle {
-            margin: 10px 0 0;
+            margin: 4px 0 0;
             color: #ffe5d8;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .filters {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 24px;
+            gap: 8px;
+            margin-top: 14px;
         }
 
         .filter-group {
             display: flex;
             align-items: center;
-            gap: 7px;
-            padding: 7px 11px;
+            gap: 5px;
+            padding: 5px 10px;
             border-radius: 999px;
             color: var(--text);
             background: white;
@@ -113,7 +115,7 @@
 
         .filter-group label {
             color: var(--muted);
-            font-size: 12px;
+            font-size: 11px;
             white-space: nowrap;
         }
 
@@ -122,65 +124,49 @@
             outline: none;
             color: var(--maroon-dark);
             font-weight: 700;
+            font-size: 11px;
             background: white;
             cursor: pointer;
         }
 
         .status-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px 18px;
-            margin-top: 14px;
-            color: #ffe9df;
-            font-size: 12px;
+            display: none; /* Sembunyikan sesuai permintaan */
         }
 
-        .status-row span::before {
-            content: "●";
-            margin-right: 6px;
-            color: #ffbe7b;
-        }
-
+        /* SECTION TITLE (Ringkasan Data) */
         .section-title {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            margin: 28px 0 13px;
+            margin: 18px 0 10px;
         }
-
         .section-title h2 {
             margin: 0;
             color: var(--maroon-dark);
-            font-size: 19px;
+            font-size: 16px;
         }
-
         .section-title p {
-            margin: 0;
-            color: var(--muted);
-            font-size: 12px;
+            display: none; /* Sembunyikan sesuai permintaan */
         }
 
+        /* CARD */
         .card {
-            padding: 20px;
-            border: 1px solid rgba(0, 0, 0, .035);
+            padding: 14px;
+            border: 1px solid rgba(0, 0, 0, .03);
             border-radius: var(--radius);
             background: var(--white);
             box-shadow: var(--shadow);
         }
 
+        /* SUMMARY GRID - DIPERKECIL */
         .summary-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
+            gap: 8px;
         }
 
         .summary-card {
             position: relative;
-            min-height: 126px;
-            padding: 18px;
+            padding: 12px 14px;
             overflow: hidden;
-            border-radius: 16px;
+            border-radius: 12px;
             background: white;
             box-shadow: var(--shadow);
         }
@@ -188,50 +174,54 @@
         .summary-card::after {
             content: "";
             position: absolute;
-            width: 80px;
-            height: 80px;
-            right: -28px;
-            bottom: -28px;
+            width: 60px;
+            height: 60px;
+            right: -20px;
+            bottom: -20px;
             border-radius: 50%;
             background: #fff2e8;
         }
 
         .summary-label {
             color: var(--muted);
-            font-size: 11px;
+            font-size: 9px;
             font-weight: 700;
-            letter-spacing: .5px;
+            letter-spacing: .4px;
+            text-transform: uppercase;
         }
 
         .summary-value {
-            margin-top: 12px;
+            margin-top: 4px;
             color: var(--maroon-dark);
-            font-size: 31px;
+            font-size: 20px;
             font-weight: 800;
+            line-height: 1.2;
         }
 
         .summary-unit {
             color: var(--muted);
-            font-size: 12px;
+            font-size: 10px;
+            margin-left: 2px;
         }
 
         .summary-icon {
             position: absolute;
-            right: 16px;
-            top: 15px;
+            right: 10px;
+            top: 10px;
             z-index: 1;
             display: grid;
-            width: 32px;
-            height: 32px;
+            width: 24px;
+            height: 24px;
             place-items: center;
-            border-radius: 10px;
+            border-radius: 8px;
             color: white;
-            font-size: 15px;
+            font-size: 11px;
             background: var(--maroon);
         }
 
+        /* MAIN CHART */
         .main-chart-card {
-            padding: 22px 18px 18px;
+            padding: 16px 14px 14px;
         }
 
         .chart-head {
@@ -239,61 +229,98 @@
             flex-wrap: wrap;
             align-items: flex-start;
             justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 16px;
+            gap: 6px;
+            margin-bottom: 10px;
         }
 
         .chart-head h3 {
             margin: 0;
             color: var(--maroon-dark);
-            font-size: 17px;
+            font-size: 15px;
         }
 
         .chart-head p {
-            margin: 5px 0 0;
+            margin: 2px 0 0;
             color: var(--muted);
-            font-size: 12px;
+            font-size: 11px;
         }
 
         .legend {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 10px;
             color: var(--muted);
-            font-size: 12px;
+            font-size: 11px;
         }
 
         .legend-item {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
 
         .legend-dot {
-            width: 11px;
-            height: 11px;
+            width: 9px;
+            height: 9px;
             border-radius: 50%;
         }
+        .legend-dot.orange { background: var(--orange); }
 
-        .legend-dot.orange {
-            background: var(--orange);
+        /* FILTER DAPIL */
+        .filter-dapil-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+            margin-bottom: 10px;
+            padding: 6px 12px;
+            border-radius: 10px;
+            background: #f8f4f0;
+        }
+
+        .filter-dapil-wrapper label {
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .filter-dapil-wrapper select {
+            padding: 3px 6px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            background: white;
+        }
+
+        /* CHART SCROLLABLE */
+        .chart-scroll-wrapper {
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            margin: 0 -4px;
+            padding: 0 4px 10px 0;
+            scroll-behavior: smooth;
         }
 
         .vertical-chart {
             display: flex;
-            height: 365px;
-            padding: 20px 8px 0 0;
+            height: 320px;
+            padding: 12px 4px 0 0;
+            min-width: 720px; /* Supaya bisa di-scroll di HP */
         }
 
         .y-axis {
             display: flex;
-            width: 42px;
+            width: 32px;
             flex-direction: column;
             justify-content: space-between;
-            padding: 0 8px 42px 0;
+            padding: 0 4px 32px 0;
             color: #8b8b8b;
-            font-size: 10px;
+            font-size: 9px;
             text-align: right;
+            flex-shrink: 0;
         }
 
         .plot-area {
@@ -307,22 +334,24 @@
                     transparent calc(25% - 1px),
                     #eeeeee calc(25% - 1px),
                     #eeeeee 25%);
+            min-width: 650px;
         }
 
         .bar-group {
             position: relative;
             display: flex;
-            flex: 1;
-            min-width: 30px;
+            flex: 1 0 32px;
             align-items: flex-end;
             justify-content: center;
             height: 100%;
+            min-width: 32px;
         }
 
         .bar-wrapper {
             position: relative;
             display: flex;
-            width: min(50px, 65%);
+            width: 70%;
+            max-width: 40px;
             height: 100%;
             align-items: flex-end;
             justify-content: center;
@@ -331,31 +360,31 @@
         .bar {
             position: relative;
             width: 100%;
-            min-height: 4px;
-            border-radius: 9px 9px 2px 2px;
+            min-height: 3px;
+            border-radius: 6px 6px 2px 2px;
             background: linear-gradient(180deg, var(--orange-light), var(--orange));
-            box-shadow: 0 4px 10px rgba(236, 91, 28, .18);
-            transition: .25s ease;
+            box-shadow: 0 2px 6px rgba(236, 91, 28, .15);
+            transition: .2s ease;
             cursor: pointer;
         }
 
         .bar:hover,
         .bar.active {
             background: linear-gradient(180deg, #c73532, var(--maroon));
-            transform: scaleX(1.08);
+            transform: scaleX(1.05);
         }
 
         .bar-number {
             position: absolute;
-            top: -28px;
+            top: -22px;
             left: 50%;
             z-index: 2;
             transform: translateX(-50%);
-            padding: 3px 6px;
+            padding: 2px 5px;
             border: 1px solid #f1d3c7;
-            border-radius: 8px;
+            border-radius: 6px;
             color: var(--maroon-dark);
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 800;
             white-space: nowrap;
             background: white;
@@ -363,51 +392,52 @@
 
         .party-logo {
             position: absolute;
-            top: -58px;
+            top: -48px;
             left: 50%;
             z-index: 1;
             display: grid;
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             place-items: center;
             transform: translateX(-50%);
             border: 2px solid white;
             border-radius: 50%;
             color: white;
-            font-size: 7px;
+            font-size: 6px;
             font-weight: 800;
             background: var(--maroon);
-            box-shadow: 0 3px 8px rgba(0, 0, 0, .18);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .12);
         }
 
         .x-label {
             position: absolute;
-            bottom: -36px;
+            bottom: -30px;
             left: 50%;
-            width: 60px;
+            width: 50px;
             transform: translateX(-50%);
             color: #555;
-            font-size: 9px;
+            font-size: 8px;
             line-height: 1.1;
             text-align: center;
         }
 
         .axis-title {
-            margin-top: 48px;
+            margin-top: 36px;
             color: var(--muted);
-            font-size: 11px;
+            font-size: 10px;
             text-align: center;
         }
 
+        /* TOOLTIP */
         .tooltip {
             display: none;
-            width: min(100%, 270px);
-            margin: 18px auto 0;
-            padding: 13px 15px;
+            width: min(100%, 240px);
+            margin: 14px auto 0;
+            padding: 10px 12px;
             border-left: 4px solid var(--maroon);
-            border-radius: 12px;
+            border-radius: 10px;
             background: #fff8f4;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, .06);
+            box-shadow: 0 4px 12px rgba(0,0,0,.04);
         }
 
         .tooltip.show {
@@ -415,72 +445,36 @@
         }
 
         .tooltip-title {
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             color: var(--maroon-dark);
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 800;
         }
 
         .tooltip-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 5px;
+            gap: 3px;
             color: #555;
-            font-size: 12px;
+            font-size: 11px;
         }
 
         .tooltip-percent {
-            margin-top: 8px;
-            padding-top: 6px;
+            margin-top: 6px;
+            padding-top: 4px;
             border-top: 1px solid #f0e0d8;
             color: var(--maroon);
             font-weight: 700;
-            font-size: 13px;
+            font-size: 12px;
             text-align: center;
         }
 
-        .filter-dapil-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 12px;
-            margin-top: 12px;
-            padding: 10px 16px;
-            border-radius: 12px;
-            background: #f8f4f0;
-        }
-
-        .filter-dapil-wrapper label {
-            color: var(--muted);
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .filter-dapil-wrapper select {
-            padding: 4px 8px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            background: white;
-        }
-
-        .no-data {
-            display: flex;
-            width: 100%;
-            height: 100%;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            font-size: 14px;
-        }
-
-        /* Sumber data - diposisikan di atas axis-title, rata kiri */
+        /* SOURCE DATA */
         .source-data {
-            margin-top: 40px;
-            margin-bottom: 6px;
+            margin-top: 28px;
+            margin-bottom: 4px;
             text-align: left;
-            font-size: 12px;
+            font-size: 11px;
             color: var(--muted);
         }
 
@@ -490,82 +484,154 @@
             text-decoration: none;
             transition: color 0.2s;
         }
-
         .source-data a:hover {
             color: var(--maroon-dark);
             text-decoration: underline;
         }
 
-        @media (max-width: 760px) {
+        .no-data {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 12px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 640px) {
             .container {
-                width: min(100% - 20px, 680px);
-                padding-top: 10px;
+                padding: 10px 0 16px;
+                width: calc(100% - 12px);
             }
-
             .header {
-                padding: 22px 18px;
+                padding: 14px 16px;
             }
-
+            h1 {
+                font-size: 18px;
+            }
+            .subtitle {
+                font-size: 12px;
+            }
             .summary-grid {
-                grid-template-columns: repeat(2, 1fr);
+                gap: 6px;
             }
-
+            .summary-card {
+                padding: 8px 10px;
+            }
+            .summary-value {
+                font-size: 17px;
+            }
+            .summary-label {
+                font-size: 8px;
+            }
+            .summary-icon {
+                width: 20px;
+                height: 20px;
+                font-size: 9px;
+                right: 6px;
+                top: 6px;
+            }
+            .main-chart-card {
+                padding: 12px 10px;
+            }
+            .chart-head h3 {
+                font-size: 13px;
+            }
+            .chart-head p {
+                font-size: 10px;
+            }
             .vertical-chart {
-                height: 320px;
+                height: 260px;
+                min-width: 560px;
             }
-
             .bar-group {
-                min-width: 24px;
+                flex: 1 0 26px;
+                min-width: 26px;
             }
-
             .bar-wrapper {
-                width: 60%;
+                max-width: 30px;
             }
-
             .x-label {
-                width: 50px;
-                font-size: 8px;
-                bottom: -32px;
+                width: 40px;
+                font-size: 7px;
+                bottom: -26px;
             }
-
             .party-logo {
-                width: 18px;
-                height: 18px;
-                font-size: 6px;
-                top: -48px;
+                width: 16px;
+                height: 16px;
+                font-size: 5px;
+                top: -40px;
             }
-
             .bar-number {
-                font-size: 8px;
-                padding: 2px 4px;
-                top: -24px;
+                font-size: 7px;
+                padding: 1px 4px;
+                top: -18px;
+            }
+            .axis-title {
+                font-size: 9px;
+                margin-top: 30px;
+            }
+            .source-data {
+                font-size: 10px;
+                margin-top: 20px;
+            }
+            .filter-dapil-wrapper {
+                padding: 4px 10px;
+            }
+            .filter-dapil-wrapper label,
+            .filter-dapil-wrapper select {
+                font-size: 10px;
+            }
+            .tooltip {
+                width: 100%;
+                padding: 8px 10px;
+            }
+            .tooltip-title {
+                font-size: 12px;
+            }
+            .tooltip-grid {
+                font-size: 10px;
             }
         }
 
-        @media (max-width: 430px) {
-            .summary-card {
-                min-height: 112px;
-                padding: 14px;
-            }
-
+        @media (max-width: 400px) {
             .summary-value {
-                font-size: 25px;
+                font-size: 15px;
             }
-
-            .main-chart-card,
-            .card {
-                padding: 16px 10px;
+            .summary-card {
+                padding: 6px 8px;
             }
-
+            .summary-icon {
+                display: none;
+            }
             .vertical-chart {
-                height: 280px;
-                padding: 12px 4px 0 0;
+                height: 220px;
+                min-width: 460px;
             }
-
-            .y-axis {
+            .bar-group {
+                flex: 1 0 22px;
+                min-width: 22px;
+            }
+            .bar-wrapper {
+                max-width: 24px;
+            }
+            .x-label {
                 width: 32px;
-                font-size: 8px;
-                padding-right: 4px;
+                font-size: 6px;
+                bottom: -22px;
+            }
+            .party-logo {
+                width: 14px;
+                height: 14px;
+                font-size: 4px;
+                top: -34px;
+            }
+            .bar-number {
+                font-size: 6px;
+                padding: 1px 3px;
+                top: -16px;
             }
         }
     </style>
@@ -576,7 +642,7 @@
 
         <header class="header">
             <div class="header-content">
-                <div class="header-label">Dashboard Informasi Pemilu</div>
+                <div class="header-label">Dashboard Informasi DCT</div>
                 <h1>REKAPITULASI DCT</h1>
                 <p class="subtitle">DPRD Kota Mojokerto</p>
 
@@ -591,45 +657,36 @@
                     </div>
                 </div>
 
-                <div class="status-row">
-                    <span>Data ilustrasi</span>
-                    <span>Semua grafik mengikuti filter</span>
-                </div>
+                <!-- Status row dihapus -->
             </div>
         </header>
 
+        <!-- SECTION RINGKASAN DATA -->
         <section class="section-title">
-            <div>
-                <h2>Ringkasan Data</h2>
-                <p>Informasi umum jumlah daftar calon tetap (total seluruh dapil)</p>
-            </div>
+            <h2>Ringkasan Data</h2>
         </section>
 
         <section class="summary-grid">
             <div class="summary-card">
                 <div class="summary-icon">▣</div>
                 <div class="summary-label">TOTAL DCT</div>
-                <div class="summary-value" id="totalDct">360</div>
-                <div class="summary-unit">orang</div>
+                <div class="summary-value" id="totalDct">360 <span class="summary-unit">orang</span></div>
             </div>
 
             <div class="summary-card">
                 <div class="summary-icon" style="background:var(--navy)">♂</div>
                 <div class="summary-label">LAKI-LAKI</div>
-                <div class="summary-value" id="totalMale">210</div>
-                <div class="summary-unit">orang</div>
+                <div class="summary-value" id="totalMale">210 <span class="summary-unit">orang</span></div>
             </div>
 
             <div class="summary-card">
                 <div class="summary-icon" style="background:var(--coral)">♀</div>
                 <div class="summary-label">PEREMPUAN</div>
-                <div class="summary-value" id="totalFemale">150</div>
-                <div class="summary-unit">orang</div>
+                <div class="summary-value" id="totalFemale">150 <span class="summary-unit">orang</span></div>
             </div>
         </section>
 
-        <!-- Bagian "Grafik Utama" dan deskripsinya telah dihapus -->
-
+        <!-- GRAFIK UTAMA -->
         <section class="card main-chart-card">
             <div class="chart-head">
                 <div>
@@ -638,13 +695,12 @@
                 </div>
                 <div class="legend">
                     <div class="legend-item">
-                        <span class="legend-dot orange"></span>
-                        Jumlah DCT
+                        <span class="legend-dot orange"></span> Jumlah DCT
                     </div>
                 </div>
             </div>
 
-            <!-- FILTER DAPIL DI BAWAH JUDUL GRAFIK -->
+            <!-- FILTER DAPIL -->
             <div class="filter-dapil-wrapper">
                 <label for="dapilSelect">Pilih Dapil:</label>
                 <select id="dapilSelect">
@@ -655,19 +711,22 @@
                 </select>
             </div>
 
-            <div class="vertical-chart">
-                <div class="y-axis" id="yAxis">
-                    <span>50</span>
-                    <span>40</span>
-                    <span>30</span>
-                    <span>20</span>
-                    <span>10</span>
-                    <span>0</span>
+            <!-- CHART SCROLLABLE -->
+            <div class="chart-scroll-wrapper">
+                <div class="vertical-chart">
+                    <div class="y-axis" id="yAxis">
+                        <span>50</span>
+                        <span>40</span>
+                        <span>30</span>
+                        <span>20</span>
+                        <span>10</span>
+                        <span>0</span>
+                    </div>
+                    <div class="plot-area" id="mainChart"></div>
                 </div>
-                <div class="plot-area" id="mainChart"></div>
             </div>
 
-            <!-- SUMBER DATA: di atas axis-title, rata kiri -->
+            <!-- SUMBER DATA -->
             <div class="source-data">
                 Sumber data:
                 <a href="https://www.kpu.go.id/" target="_blank" rel="noopener noreferrer">
@@ -691,7 +750,6 @@
                 </div>
                 <div class="tooltip-percent" id="tooltipPercent" style="display:none;"></div>
             </div>
-
         </section>
 
     </main>
@@ -835,14 +893,14 @@
         }
 
         function renderSummary() {
-            const items = getSummaryData(); // selalu ambil data all
+            const items = getSummaryData();
             const totalMale = items.reduce((sum, item) => sum + item.male, 0);
             const totalFemale = items.reduce((sum, item) => sum + item.female, 0);
             const total = totalMale + totalFemale;
 
-            document.getElementById("totalDct").textContent = formatNumber(total);
-            document.getElementById("totalMale").textContent = formatNumber(totalMale);
-            document.getElementById("totalFemale").textContent = formatNumber(totalFemale);
+            document.getElementById("totalDct").innerHTML = formatNumber(total) + ' <span class="summary-unit">orang</span>';
+            document.getElementById("totalMale").innerHTML = formatNumber(totalMale) + ' <span class="summary-unit">orang</span>';
+            document.getElementById("totalFemale").innerHTML = formatNumber(totalFemale) + ' <span class="summary-unit">orang</span>';
         }
 
         function renderMainChart(items) {
@@ -920,7 +978,6 @@
             document.getElementById("tooltipFemale").textContent =
                 `${formatNumber(item.female)} orang`;
 
-            // Tampilkan persentase hanya jika dapil spesifik (bukan "all")
             if (currentDapil !== "all") {
                 tooltipPercent.style.display = 'block';
                 tooltipPercent.textContent = `Keterwakilan Perempuan: ${femalePercent.replace('.', ',')}%`;
@@ -933,10 +990,9 @@
 
         function renderDashboard() {
             const items = getCurrentData();
-            renderSummary(); // selalu pakai data all
+            renderSummary();
             renderMainChart(items);
 
-            // Sembunyikan tooltip dan reset active bar
             tooltip.classList.remove("show");
             document.querySelectorAll(".bar").forEach(itemBar => {
                 itemBar.classList.remove("active");
